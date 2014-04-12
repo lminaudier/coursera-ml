@@ -62,9 +62,22 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+K = num_labels;
 
+yy = eye(K)(y,:);
 
+a1 = [ones(m,1) X];
+z2 = (Theta1 * a1')';
+a2 = sigmoid(z2);
+a2 = [ones(size(a2,1), 1) a2];
+z3 = (Theta2 * a2')';
+a3 = sigmoid(z3);
+h = a3;
 
+pos = (-yy .* log(h));
+neg = ((1-yy) .* log(1 - h));
+J = (1 / m) * (pos - neg);
+J = sum(sum(J));
 
 
 
