@@ -88,19 +88,40 @@ J_reg = (lambda / (2 * m)) * J_reg;
 
 J = J + J_reg;
 
+for t = 1:m
+  % Step 1
+  % size_a1 = size(a1);
+  a1_t = a1(t, :);
+  % size_a1_t = size(a1_t);
 
+  % size_a2 = size(a2);
+  % size_z2 = size(z2);
+  z2_t = z2(t, :);
+  a2_t = a2(t, :);
+  % size_z2_t = size(z2_t);
+  % size_a2_t = size(a2_t);
 
+  % size_a3 = size(a3);
+  % size_z3 = size(z3);
+  z3_t = z3(t, :);
+  a3_t = a3(t, :);
+  % size_z3_t = size(z3_t);
+  % size_a3_t = size(a3_t);
 
+  % Step 2
+  delta_3 = a3_t - yy(t,:);
 
+  % Step 3
+  td = (Theta2' * delta_3');
+  sz = sigmoidGradient(z2_t)';
+  delta_2 = (td(2:end) .* sz)';
 
+  Theta1_grad = Theta1_grad + delta_2' * a1_t;
+  Theta2_grad = Theta2_grad + delta_3' * a2_t;
+endfor
 
-
-
-
-
-
-
-
+Theta1_grad = (1 / m) * Theta1_grad;
+Theta2_grad = (1 / m) * Theta2_grad;
 
 % -------------------------------------------------------------
 
