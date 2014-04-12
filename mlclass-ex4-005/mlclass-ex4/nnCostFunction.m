@@ -79,6 +79,15 @@ neg = ((1-yy) .* log(1 - h));
 J = (1 / m) * (pos - neg);
 J = sum(sum(J));
 
+Theta1_without_bias = Theta1(:,2:end);
+Theta2_without_bias = Theta2(:,2:end);
+
+J_reg = sum(sum(Theta1_without_bias .**2));
+J_reg = J_reg + sum(sum(Theta2_without_bias .**2));
+J_reg = (lambda / (2 * m)) * J_reg;
+
+J = J + J_reg;
+
 
 
 
