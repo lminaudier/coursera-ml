@@ -44,8 +44,11 @@ M = (X * Theta' - Y);
 J_reg = (lambda / 2) * (sum((X(:).^2)) + sum((Theta(:).^2)));
 J = (1 / 2) * sum((M.^2.*R)(:)) + J_reg;
 
-X_grad = (M.*R) * Theta;
-Theta_grad = (M.*R)' * X;
+X_grad_reg = lambda * X;
+Theta_grad_reg = lambda * Theta;
+
+X_grad = (M.*R) * Theta + X_grad_reg;
+Theta_grad = (M.*R)' * X + Theta_grad_reg;
 
 
 
